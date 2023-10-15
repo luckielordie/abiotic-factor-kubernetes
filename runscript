@@ -1,6 +1,6 @@
 @ShutdownOnFailedCommand 1
 @NoPromptForPassword 1
-force_install_dir /home/steam/project_zomboid
+force_install_dir /root/project_zomboid
 login anonymous 
 app_update 380870 validate
 quit
