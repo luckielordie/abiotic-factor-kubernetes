@@ -1,3 +1,7 @@
-# Zomboid Docker
+# Abiotic Factor Kubernetes
 
-`docker run --rm --name zomboid -it -p 16261:16261/udp -p 16262:16262/udp -v /zomboid_server/JTWZomboid:/root/Zomboid -v /home/ec2-user/workshop_content:/home/steam/project_zomboid/steamapps luckielordie/zomboid:latest`
+A way to run an Abiotic Factor server on kubernetes.
+
+https://github.com/DFJacob/AbioticFactorDedicatedServer/issues/3#issuecomment-2094369127
+https://github.com/Pleut/abiotic-factor-linux-docker/tree/main
+https://github.com/DFJacob/AbioticFactorDedicatedServer/wiki/Guide-%E2%80%90-Quickstart

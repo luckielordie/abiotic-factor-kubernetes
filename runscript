@@ -1,6 +1,7 @@
 @ShutdownOnFailedCommand 1
 @NoPromptForPassword 1
-force_install_dir /root/project_zomboid
+@sSteamCmdForcePlatformType windows
+force_install_dir /abiotic-factor/
 login anonymous 
-app_update 380870 validate
+app_update 2857200 validate
 quit
