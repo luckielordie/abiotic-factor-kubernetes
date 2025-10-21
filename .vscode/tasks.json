@@ -1,0 +1,10 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "build container",
+			"command": "docker build --build-arg STEAM_APP_ID=2857200 --build-arg STEAM_DEPOT_ID=2857201 --build-arg STEAM_MANIFEST_ID=5370878496015047913 --build-arg STEAM_USER= --build-arg STEAM_PASSWORD= -t luckielordie/abiotic-factor-dedicated-server:5370878496015047913 .",
+		}
+	]
+}
