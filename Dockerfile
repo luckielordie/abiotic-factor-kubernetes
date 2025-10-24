@@ -14,7 +14,7 @@ RUN steamcmd +login "$STEAM_USER" "$STEAM_PASSWORD" \
 +quit
 
 
-FROM debian:bullseye-slim
+FROM debian:bullseye
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN dpkg --add-architecture i386 && \
@@ -23,7 +23,8 @@ RUN dpkg --add-architecture i386 && \
     echo "deb http://security.debian.org/debian-security/ bullseye-security main contrib non-free" >> /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-    tini \
+    cabextract \
+    winbind \
     wine \
     wine32 \
     wine64 \
@@ -32,12 +33,16 @@ RUN dpkg --add-architecture i386 && \
     winetricks \
     lib32gcc-s1 \
     ca-certificates \
+    wget \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -O /usr/bin/winetricks && \
+    chmod +x /usr/bin/winetricks
 
 RUN useradd -m steam
 USER steam
 WORKDIR /home/steam
-RUN xvfb-run -a -- wineboot -i
+RUN xvfb-run -a -- winetricks -q vcrun2019
 
 ARG STEAM_APP_DESIRED_PATH="server"
 ARG STEAM_APP_ID
@@ -48,6 +53,23 @@ COPY --from=builder --chown=steam:steam \
     /home/steam/${STEAM_APP_DESIRED_PATH}
 
 ENV SERVER_DIR=/home/steam/${STEAM_APP_DESIRED_PATH}
+ENV SERVER_NAME="My Abiotic Factor Server"
+ENV SERVER_PASSWORD="ChangeMe"
+ENV MAX_PLAYERS=6
+ENV PORT=7777
+ENV QUERY_PORT=27015
+ENV WORLD_NAME="Cascade"
+ENV WINEDEBUG=-all
 
-ENTRYPOINT ["/usr/bin/tini", "--", "/bin/sh", "-c", "xvfb-run -a -- ${SERVER_DIR}/AbioticFactorServer.exe"]
-CMD []
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["wine64 \
+${SERVER_DIR}/AbioticFactor/Binaries/Win64/AbioticFactorServer-Win64-Shipping.exe \
+-useperfthreads \
+-NoAsyncLoadingThread \
+-SteamServerName=\"${SERVER_NAME}\" \
+-ServerPassword=\"${SERVER_PASSWORD}\" \
+-MaxServerPlayers=${MAX_PLAYERS} \
+-PORT=${PORT} \
+-QUERYPORT=${QUERY_PORT} \
+-WorldSaveName=\"${WORLD_NAME}\" \
+"]
