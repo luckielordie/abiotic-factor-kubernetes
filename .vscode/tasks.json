@@ -4,12 +4,12 @@
 		{
 			"type": "shell",
 			"label": "build container",
-			"command": "docker build --build-arg STEAM_APP_ID=2857200 --build-arg STEAM_DEPOT_ID=2857201 --build-arg STEAM_MANIFEST_ID=5370878496015047913 --build-arg STEAM_USER= --build-arg STEAM_PASSWORD= -t luckielordie/abiotic-factor-dedicated-server:5370878496015047913 .",
+			"command": "docker build --build-arg STEAM_APP_ID=2857200 --build-arg STEAM_DEPOT_ID=2857201 --build-arg STEAM_MANIFEST_ID=355348117436251847 --build-arg STEAM_USER= --build-arg STEAM_PASSWORD= -t luckielordie/abiotic-factor-dedicated-server:1.1.0.22148 .",
 		},
 		{
 			"type": "shell",
 			"label": "run container",
-			"command": "docker run --rm -it -p 7777:7777/udp -p 27015:27015/udp -e SERVER_NAME=\"My Docker Test Server\" -e SERVER_PASSWORD=\"test\" luckielordie/abiotic-factor-dedicated-server:5370878496015047913",
+			"command": "docker run --rm -it -p 7777:7777/udp -p 27015:27015/udp -e SERVER_NAME=\"My Docker Test Server\" -e SERVER_PASSWORD=\"test\" luckielordie/abiotic-factor-dedicated-server:1.1.0.22148",
 		}
 	]
 }
