@@ -26,8 +26,6 @@ jobs:
         id: config
         run: |
           echo "steam_app_id=$(jq -r .steam_app_id steam-config.json)" >> $GITHUB_OUTPUT
-          echo "steam_depot_id=$(jq -r .steam_depot_id steam-config.json)" >> $GITHUB_OUTPUT
-          echo "steam_manifest_id=$(jq -r .steam_manifest_id steam-config.json)" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -58,8 +56,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            STEAM_USER=${{ vars.STEAM_USERNAME }}
-            STEAM_PASSWORD=${{ secrets.STEAM_PASSWORD }}
             STEAM_APP_ID=${{ steps.config.outputs.steam_app_id }}
-            STEAM_DEPOT_ID=${{ steps.config.outputs.steam_depot_id }}
-            STEAM_MANIFEST_ID=${{ steps.config.outputs.steam_manifest_id }}

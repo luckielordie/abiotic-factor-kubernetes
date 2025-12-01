@@ -1,5 +1,7 @@
 # Finding Your ManifestID
 
+> **Note:** The current `Dockerfile` uses `app_update` for anonymous downloads, which automatically fetches the latest version of the game. Manually finding a Manifest ID is only necessary if you need to revert to a specific older version or if you are modifying the Dockerfile to use `download_depot`.
+
 The only tool you need is SteamDB.
 
 Let's use Abiotic Factor as our example.
@@ -38,4 +40,3 @@ Find the version you want (usually the top one for the latest, or scroll down to
 Copy the long number in the "MANIFEST ID" column.
 
 STEAM_MANIFEST_ID: (Example) 5370878496015047913
-

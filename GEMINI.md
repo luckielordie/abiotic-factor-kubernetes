@@ -8,26 +8,22 @@ While the repository name suggests Kubernetes, the core component is a generic D
 ## Key Components
 
 - **`Dockerfile`**: Defines the build process.
-    - **Stage 1 (Builder):** Uses `steamcmd/steamcmd` to download specific game depots.
+    - **Stage 1 (Builder):** Uses `steamcmd/steamcmd` to download the server files via `app_update` (anonymous login).
     - **Stage 2 (Runtime):** Uses `debian:bullseye` with Wine installed to execute the server.
-- **`docs/manifest-id.md`**: a guide on how to find the required Steam IDs.
-- **`.github/workflows`**: CI/CD configuration (currently appears to be a work in progress).
+- **`docs/manifest-id.md`**: a guide on how to find the required Steam IDs (only needed if you want to modify the build to target a specific older version).
+- **`.github/workflows`**: CI/CD configuration.
 
 ## Building the Image
 
-To build the image, you must provide three build arguments corresponding to the Steam App, Depot, and Manifest IDs.
+To build the image, you only need to provide the Steam App ID.
 
 **Required Build Arguments:**
 *   `STEAM_APP_ID`: `2857200` (Abiotic Factor Dedicated Server)
-*   `STEAM_DEPOT_ID`: `2857201` (Windows Server Depot)
-*   `STEAM_MANIFEST_ID`: **You must find this.** This ID changes with every game update. See `docs/manifest-id.md` for instructions on how to retrieve the latest one from SteamDB.
 
 **Build Command:**
 ```bash
 docker build \
   --build-arg STEAM_APP_ID=2857200 \
-  --build-arg STEAM_DEPOT_ID=2857201 \
-  --build-arg STEAM_MANIFEST_ID=<YOUR_MANIFEST_ID> \
   -t abiotic-factor-server .
 ```
 
@@ -59,5 +55,5 @@ docker run -d \
 
 ## Development & Maintenance
 
-*   **Updates:** To update the server, you must find the new `STEAM_MANIFEST_ID`, rebuild the image, and restart the container.
+*   **Updates:** To update the server, simply rebuild the Docker image. The build process automatically fetches the latest version of the server from Steam.
 *   **Persistence:** The `Dockerfile` does not explicitly define a volume for the save data in the `CMD` or `VOLUME` instruction, but the server directory is at `/home/steam/server`. To persist saves, you should likely mount a volume to the save location (likely inside `/home/steam/server/AbioticFactor/Saved`).

@@ -8,9 +8,14 @@ ARG STEAM_PASSWORD=""
 
 WORKDIR /builder
 
-RUN steamcmd +login "$STEAM_USER" "$STEAM_PASSWORD" \
-+download_depot "$STEAM_APP_ID" "$STEAM_DEPOT_ID" "$STEAM_MANIFEST_ID" \
-+quit
+RUN steamcmd \
+    +login anonymous \
+    +@sSteamCmdForcePlatformType windows \
+    +app_update "$STEAM_APP_ID" validate \
+    +quit \
+    && mkdir -p /builder/server \
+    && ls -la /root/.local/share/Steam/steamapps/common/ \
+    && mv /root/.local/share/Steam/steamapps/common/*/* /builder/server/
 
 
 FROM debian:bullseye
@@ -45,10 +50,9 @@ RUN xvfb-run -a -- winetricks -q vcrun2019
 
 ARG STEAM_APP_DESIRED_PATH="server"
 ARG STEAM_APP_ID
-ARG STEAM_DEPOT_ID
 
 COPY --from=builder --chown=steam:steam \
-    /root/.local/share/Steam/steamcmd/linux32/steamapps/content/app_${STEAM_APP_ID}/depot_${STEAM_DEPOT_ID} \
+    /builder/server \
     /home/steam/${STEAM_APP_DESIRED_PATH}
 
 ENV SERVER_DIR=/home/steam/${STEAM_APP_DESIRED_PATH}
