@@ -1,0 +1,29 @@
+{
+	"name": "Abiotic Factor Docker",
+	"image": "luckielordie/abiotic-factor-dedicated-server-devcontainer:develop",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"redhat.vscode-yaml",
+				"ms-azuretools.vscode-docker"
+			]
+		}
+	},
+	"remoteEnv": {
+  	  "DOCKER_PAT": "${localEnv:DOCKER_PAT}",
+	  "GITHUB_PAT": "${localEnv:GITHUB_PAT}",
+      "STEAM_USER": "${localEnv:STEAM_USER}",
+	  "STEAM_PASSWORD": "${localEnv:STEAM_PASSWORD}",
+      "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}"
+  	},
+	"mounts": [
+    	"source=${localEnv:HOME}/.ssh,target=/home/user/.ssh,type=bind,consistency=cached",
+		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+		"source=${localEnv:HOME}/.gemini,target=/home/user/.gemini,type=bind,consistency=cached"
+  	],
+	"postStartCommand": "./.devcontainer/post-run.sh",
+  	"runArgs": [
+  	  "--network=host",
+  	  "--name=abiotic-factor-dedicated-server-devcontainer"
+  	]
+}

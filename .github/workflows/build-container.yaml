@@ -1,0 +1,13 @@
+name: Publish Docker Image
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'manifests/**'
+
+env:
+  OCI_REPO: "oci://docker.io/luckielordie/abiotic-factor-dedicated-server"
+

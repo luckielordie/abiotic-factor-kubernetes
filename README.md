@@ -1,11 +1,6 @@
-# Abiotic Factor Kubernetes
+# Abiotic Factor Dedicated Server Container
 
-A way to run an Abiotic Factor server on kubernetes.
-
-https://github.com/DFJacob/AbioticFactorDedicatedServer/issues/3#issuecomment-2094369127
-https://github.com/Pleut/abiotic-factor-linux-docker/tree/main
-https://github.com/DFJacob/AbioticFactorDedicatedServer/wiki/Guide-%E2%80%90-Quickstart
-
+A way to run an Abiotic Factor server as a container.
 
 ## How to Find Your Variables (Step-by-Step)
 The only tool you need is SteamDB.
@@ -46,3 +41,10 @@ Find the version you want (usually the top one for the latest, or scroll down to
 Copy the long number in the "MANIFEST ID" column.
 
 STEAM_MANIFEST_ID: (Example) 5370878496015047913
+
+
+## References
+
+https://github.com/DFJacob/AbioticFactorDedicatedServer/issues/3#issuecomment-2094369127
+https://github.com/Pleut/abiotic-factor-linux-docker/tree/main
+https://github.com/DFJacob/AbioticFactorDedicatedServer/wiki/Guide-%E2%80%90-Quickstart
