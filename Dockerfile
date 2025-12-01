@@ -3,10 +3,14 @@ FROM steamcmd/steamcmd:latest AS builder
 ARG STEAM_APP_ID
 ARG STEAM_DEPOT_ID
 ARG STEAM_MANIFEST_ID
+ARG STEAM_USER=anonymous
+ARG STEAM_PASSWORD=""
 
 WORKDIR /builder
 
-RUN steamcmd +download_depot "$STEAM_APP_ID" "$STEAM_DEPOT_ID" "$STEAM_MANIFEST_ID" +quit
+RUN steamcmd +login "$STEAM_USER" "$STEAM_PASSWORD" \
++download_depot "$STEAM_APP_ID" "$STEAM_DEPOT_ID" "$STEAM_MANIFEST_ID" \
++quit
 
 
 FROM debian:bullseye
