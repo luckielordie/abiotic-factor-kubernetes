@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euxo pipefail
+set -euo pipefail
 # This script runs after the container is created.
 
 # Authenticate GitHub CLI

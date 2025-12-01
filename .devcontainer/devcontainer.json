@@ -10,6 +10,7 @@
 		}
 	},
 	"remoteEnv": {
+	  "DOCKER_USERNAME": "${localEnv:DOCKER_USERNAME}",
   	  "DOCKER_PAT": "${localEnv:DOCKER_PAT}",
 	  "GITHUB_PAT": "${localEnv:GITHUB_PAT}",
       "STEAM_USER": "${localEnv:STEAM_USER}",
